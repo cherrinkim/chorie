@@ -11,6 +11,7 @@ namespace chorie
 
 			var logo = new Image
 			{
+				Aspect = Aspect.AspectFit,
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.Center
 			};
