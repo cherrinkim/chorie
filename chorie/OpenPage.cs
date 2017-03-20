@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace chorie
 {
-	public class OpenScreen : ContentPage
+	public class OpenPage : ContentPage
 	{
-		public OpenScreen()
+		public OpenPage()
 		{
 			Label header = new Label
 			{
