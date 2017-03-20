@@ -39,6 +39,7 @@ namespace chorie
 			layout.Children.Add(logo);
 			layout.Children.Add(createFormationsButton);
 			layout.Children.Add(openExistingButton);
+			layout.Spacing = 10;
 			Content = layout;
 		}
 	}
