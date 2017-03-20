@@ -8,7 +8,7 @@ namespace chorie
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new ChoriePage());
+			MainPage = new NavigationPage(new OpenScreen());
 		}
 
 		protected override void OnStart()

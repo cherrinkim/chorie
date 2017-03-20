@@ -25,12 +25,21 @@ namespace chorie
 			picker.Items.Add("Vertical Line");
 			picker.Items.Add("Circle");
 
+			Button goButton = new Button { 
+				Text = "GO",
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+				BorderWidth = 1,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.End
+			};
+
 			Content = new StackLayout
 			{
 				Children =
 				{
 					header,
 					picker,
+					goButton
 				}
 			};
 
