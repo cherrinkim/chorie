@@ -1,0 +1,44 @@
+﻿using Xamarin.Forms;
+
+namespace chorie
+{
+	public partial class ChoriePage : ContentPage
+	{
+		public ChoriePage()
+		{
+			Title = "Chorie";
+			var layout = new StackLayout();
+
+			var logo = new Image
+			{
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center
+			};
+
+			logo.Source = "logo.jpg";
+
+			var createFormationsButton = new Button
+			{
+				Text = "Create New Formation",
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+				BorderWidth = 1,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center
+			};
+
+			var openExistingButton = new Button
+			{
+				Text = "Open Existing Formation",
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+				BorderWidth = 1,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center
+			};
+
+			layout.Children.Add(logo);
+			layout.Children.Add(createFormationsButton);
+			layout.Children.Add(openExistingButton);
+			Content = layout;
+		}
+	}
+}
