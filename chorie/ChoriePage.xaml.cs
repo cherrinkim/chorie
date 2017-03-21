@@ -27,7 +27,7 @@ namespace chorie
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.Center,
 			};
-			createFormationsButton.Clicked += OnCreateFormationsButtonClicked;
+			createFormationsButton.Clicked += OnCreateFormationsButtonClick;
 
 			var openExistingButton = new Button
 			{
@@ -37,6 +37,7 @@ namespace chorie
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.Center
 			};
+			openExistingButton.Clicked += OnOpenExistingButtonClick;
 
 			layout.Children.Add(logo);
 			layout.Children.Add(createFormationsButton);
@@ -45,9 +46,14 @@ namespace chorie
 			Content = layout;
 		}
 
-		async void OnCreateFormationsButtonClicked(object sender, EventArgs e)
+		async void OnCreateFormationsButtonClick(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new CreatePage());	
+		}
+
+		async void OnOpenExistingButtonClick(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new OpenPage());
 		}
 	}
 }
