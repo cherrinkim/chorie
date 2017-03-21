@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using System;
 
 namespace chorie
 {
@@ -24,8 +25,9 @@ namespace chorie
 				Font = Font.SystemFontOfSize(NamedSize.Large),
 				BorderWidth = 1,
 				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center
+				VerticalOptions = LayoutOptions.Center,
 			};
+			createFormationsButton.Clicked += OnCreateFormationsButtonClicked;
 
 			var openExistingButton = new Button
 			{
@@ -41,6 +43,11 @@ namespace chorie
 			layout.Children.Add(openExistingButton);
 			layout.Spacing = 10;
 			Content = layout;
+		}
+
+		async void OnCreateFormationsButtonClicked(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new CreatePage());	
 		}
 	}
 }
