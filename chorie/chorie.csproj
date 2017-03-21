@@ -47,6 +47,8 @@
     </Compile>
     <Compile Include="OpenPage.cs" />
     <Compile Include="CreatePage.cs" />
+    <Compile Include="ActivityPage.cs" />
+    <Compile Include="IOrientationHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

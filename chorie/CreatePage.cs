@@ -42,6 +42,8 @@ namespace chorie
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.End
 			};
+			goButton.Clicked += OnGoButtonClick;
+
 
 			Content = new StackLayout
 			{
@@ -52,6 +54,11 @@ namespace chorie
 					goButton
 				}
 			};
+		}
+
+		async void OnGoButtonClick(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new ActivityPage());	
 		}
 	}
 }
