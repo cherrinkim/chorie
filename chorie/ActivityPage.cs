@@ -8,7 +8,7 @@ namespace chorie
 	{
 		public ActivityPage()
 		{
-			DependencyService.Get<IOrientationHandler>().ForceLandscape();
+			//DependencyService.Get<IOrientationHandler>().ForceLandscape();
 			Content = new StackLayout
 			{
 				Children = {
