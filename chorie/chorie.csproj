@@ -33,6 +33,9 @@
     <EmbeddedResource Include="MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\MyPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -47,8 +50,11 @@
     </Compile>
     <Compile Include="OpenPage.cs" />
     <Compile Include="CreatePage.cs" />
-    <Compile Include="ActivityPage.cs" />
     <Compile Include="IOrientationHandler.cs" />
+    <Compile Include="Properties\ActvityPage.cs" />
+    <Compile Include="Properties\MyPage.xaml.cs">
+      <DependentUpon>MyPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
