@@ -29,7 +29,7 @@ namespace chorie
 			AbsoluteLayout.SetLayoutFlags(rightBox, AbsoluteLayoutFlags.PositionProportional);
 
 			var leftBox = new BoxView { Color = Color.Red };
-			AbsoluteLayout.SetLayoutBounds(leftBox, new Rectangle(0, .5, 25, 100));
+			AbsoluteLayout.SetLayoutBounds(leftBox, new Rectangle(0, 0, 200, AbsoluteLayout.AutoSize));
 			AbsoluteLayout.SetLayoutFlags(leftBox, AbsoluteLayoutFlags.PositionProportional);
 
 			var topBox = new BoxView { Color = Color.Blue };
