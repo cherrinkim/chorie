@@ -56,10 +56,20 @@ namespace chorie
 				VerticalOptions = LayoutOptions.Center,
 			};
 
+			var scrapButton = new Button
+			{
+				Text = "Scrap Formation",
+				Font = Font.SystemFontOfSize(NamedSize.Large),
+				BorderWidth = 1,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center,
+			};
+
 			leftStack.Children.Add(button1);
 			bottomStack.Children.Add(addNodeButton);
 			bottomStack.Children.Add(removeNodeButton);
 			bottomStack.Children.Add(saveButton);
+			bottomStack.Children.Add(scrapButton);
 
 			layout.Children.Add(bottomStack);
 			layout.Children.Add(leftStack);
