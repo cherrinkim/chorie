@@ -58,7 +58,7 @@ namespace chorie
 
 		async void OnGoButtonClick(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new ActvityPage());	
+			await Navigation.PushAsync(new ActivityPage());	
 		}
 	}
 }
