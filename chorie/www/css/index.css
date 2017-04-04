@@ -47,6 +47,42 @@ body {
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
+/*
+.platform-ios . drawing-board {
+    background-color: white;
+    width: 300px;
+    margin: auto;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.platform-android . drawing-board {
+    background-color: white;
+    width: 300px;
+    margin: auto;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.platform-browser .drawing-board {
+    background-color: white;
+    width: 960px;
+    margin: auto;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.platform-browser #canvas {
+  width: 900px;
+  height: 700px;
+}*/
+
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -140,4 +176,24 @@ a.button {
   padding: 2%;
   border-radius: 2%;
   height: 30%;
+}
+#canvas {
+    border: 1px solid black;
+}
+.drawing-board {
+    background-color: white;
+    width: 960px;
+    margin: auto;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.drawing-board .btn-primary {
+    margin: 1px;
+    font-size: 10px;
+    width: 120px;
+}
+.drawing-board .glyphicon {
+    margin-left: 3px;
 }
