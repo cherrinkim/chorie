@@ -12,24 +12,34 @@ window.onload = function() {
 			});
 		}
 
-		function loadState(indexOfState){
+		function load(indexOfState){
 			canvas.clear();
-			var localStates = window.localStorage.getItem("states");
-			canvas.loadFromJSON(states[indexOfState]);
+			var localStates = JSON.parse(window.localStorage.getItem("states"));
+			console.log(localStates);
+			canvas.loadFromJSON(localStates[indexOfState]);
+
+			canvas.renderAll();
+			canvas.calcOffset();
 		}
 
 		updateStates();
 
 		$('#selectState').change(function () {
-			var indexOfState = $('#selectState option:selected').index();
-			console.log(indexOfState);
-			loadState(indexOfState);
+			var val = $("#selectState option:selected").text();
+			canvas.clear();
+
+			canvas.loadFromJSON(states[val]);
+			canvas.renderAll();
+			canvas.calcOffset();
 		});
 		
 
 		$("#addState").click(function(){
-			states['State ' + (Object.keys(states).length+1).toString()] = "";
+			var name = 'State ' + (Object.keys(states).length+1).toString();
+			states[name] = "";
 			updateStates();
+
+			$('#selectState').val(name).trigger('change');
 		});
 
 		$("#circle").click(function(){
@@ -66,13 +76,27 @@ window.onload = function() {
 
         $("#saveState").click(function(){
             canvas.isDrawingMode = false;
+            // save to localStorage
+            //var json = JSON.stringify(canvas);
+
+            //window.localStorage.setItem("hoge", json);
+            // var val = $("#selectState option:selected").text();
+            // states[val] = json;
+            // window.localStorage.setItem("states", JSON.stringify(states));
+            var json = JSON.stringify(canvas);
+			var val = $("#selectState option:selected").text();
+            states[val] = json;
+        });
+
+        $("#saveLocally").click(function(){
+        	canvas.isDrawingMode = false;
             if(!window.localStorage){alert("This function is not supported by your browser."); return;}
             // save to localStorage
             var json = JSON.stringify(canvas);
 
-            //window.localStorage.setItem("hoge", json);
-            states.push(json);
-            window.localStorage.setItem("states", states);
+            var val = $("#selectState option:selected").text();
+            states[val] = json;
+            window.localStorage.setItem("states", JSON.stringify(states));
         });
 
         $("#resetCanvas").click(function(){
