@@ -15,7 +15,7 @@ window.onload = function() {
 		function loadState(indexOfState){
 			canvas.clear();
 			var localStates = window.localStorage.getItem("states");
-			canvas.loadFromJSON(states.get(indexOfState));
+			canvas.loadFromJSON(states[indexOfState]);
 		}
 
 		updateStates();
