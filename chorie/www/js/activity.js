@@ -1,11 +1,24 @@
 window.onload = function() {
-	var canvas = new fabric.Canvas('canvas');
-
-
+	canvas = new fabric.Canvas('canvas');
+	states = ['State 1'];
 	jQuery(document).ready( function() {
 
+
+		function updateStates(){
+			$('#selectState').empty();
+			$.each(states, function(i, p){
+				$('#selectState').append($('<option></option>').val(p).html(p));
+			});
+		}
+
+		updateStates();
 		
-		
+
+		$("#addState").click(function(){
+			states.push('State ' + (states.length+1).toString());
+			updateStates();
+		});
+
 		$("#circle").click(function(){
 
             var mouse_pos = { x:0 , y:0 };
@@ -36,7 +49,17 @@ window.onload = function() {
                 canvas.off('mouse:down');
 
             });
+        });
 
+        $("#saveState").click(function(){
+            canvas.isDrawingMode = false;
+            if(!window.localStorage){alert("This function is not supported by your browser."); return;}
+            // save to localStorage
+            var json = JSON.stringify(canvas);
+
+            //window.localStorage.setItem("hoge", json);
+            states.push(json);
+            window.localStorage.setItem("states", states);
         });
 
 	});
