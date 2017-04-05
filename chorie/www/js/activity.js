@@ -1,7 +1,10 @@
 window.onload = function() {
 	var canvas = new fabric.Canvas('canvas');
 
+
 	jQuery(document).ready( function() {
+
+		
 		
 		$("#circle").click(function(){
 
@@ -13,14 +16,22 @@ window.onload = function() {
 
                 mouse_pos = canvas.getPointer(e.e);
 
-                canvas.add(new fabric.Circle({
-                    left: mouse_pos.x,
-                    top: mouse_pos.y,
+                var circle = new fabric.Circle({
+                    left: mouse_pos.x-30,
+                    top: mouse_pos.y-30,
                     radius: 30,
                     fill: 'white',
                     stroke: 'black',
                     strokeWidth: 3
-                }));
+                });
+
+                canvas.add(circle);
+
+                circle.setControlVisible('ml', false);
+				circle.setControlVisible('mt', false);
+				circle.setControlVisible('mr', false);
+				circle.setControlVisible('mb', false);
+				circle.setControlVisible('mtr', false);
 
                 canvas.off('mouse:down');
 
