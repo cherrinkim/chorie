@@ -32,9 +32,37 @@ window.onload = function() {
 			canvas.renderAll();
 			canvas.calcOffset();
 		});
+
+		$('#selectState').mousedown(function(){
+			saveState();
+		});
+
+		$('#previousState').click(function() {
+			saveState();
+			var currentIndex = $("#selectState option:selected").index();
+			if(currentIndex != 0){
+				var name = $('#selectState option').eq(currentIndex-1).text();
+				$('#selectState').val(name).trigger('change');
+			} else {
+				// no more previous ones
+			}
+		});
+
+		$('#nextState').click(function(){
+			saveState();
+			var currentIndex = $("#selectState option:selected").index();
+			var name = $('#selectState option').eq(currentIndex+1).text();
+			if(name != ""){
+				$('#selectState').val(name).trigger('change');
+			} else {
+				// no more next ones
+			}
+
+		});
 		
 
 		$("#addState").click(function(){
+			saveState();
 			var name = 'State ' + (Object.keys(states).length+1).toString();
 			states[name] = "";
 			updateStates();
@@ -74,18 +102,15 @@ window.onload = function() {
 			});
 		});
 
-		$("#saveState").click(function(){
+		function saveState(){
 			canvas.isDrawingMode = false;
-            // save to localStorage
-            //var json = JSON.stringify(canvas);
-
-            //window.localStorage.setItem("hoge", json);
-            // var val = $("#selectState option:selected").text();
-            // states[val] = json;
-            // window.localStorage.setItem("states", JSON.stringify(states));
             var json = JSON.stringify(canvas);
             var val = $("#selectState option:selected").text();
             states[val] = json;
+		}
+
+		$("#saveState").click(function(){
+			saveState();
         });
 
 		$("#saveLocally").click(function(){
@@ -125,9 +150,6 @@ window.onload = function() {
 				canvas.calcOffset();
 			}
 			fr.readAsText(event.target.files[0]);
-			
-			
-
 		});
 
 		$("#resetCanvas").click(function(){
