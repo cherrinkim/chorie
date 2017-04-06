@@ -1,32 +1,138 @@
 window.onload = function() {
-	var canvas = new fabric.Canvas('canvas');
-
+	canvas = new fabric.Canvas('canvas');
+	states = {};
+	states['State 1'] = "";
 	jQuery(document).ready( function() {
+
+
+		function updateStates(){
+			$('#selectState').empty();
+			$.each(Object.keys(states), function(i, p){
+				$('#selectState').append($('<option></option>').val(p).html(p));
+			});
+		}
+
+		function load(indexOfState){
+			canvas.clear();
+			var localStates = JSON.parse(window.localStorage.getItem("states"));
+			console.log(localStates);
+			canvas.loadFromJSON(localStates[indexOfState]);
+
+			canvas.renderAll();
+			canvas.calcOffset();
+		}
+
+		updateStates();
+
+		$('#selectState').change(function () {
+			var val = $("#selectState option:selected").text();
+			canvas.clear();
+
+			canvas.loadFromJSON(states[val]);
+			canvas.renderAll();
+			canvas.calcOffset();
+		});
 		
+
+		$("#addState").click(function(){
+			var name = 'State ' + (Object.keys(states).length+1).toString();
+			states[name] = "";
+			updateStates();
+
+			$('#selectState').val(name).trigger('change');
+		});
+
 		$("#circle").click(function(){
 
-            var mouse_pos = { x:0 , y:0 };
+			var mouse_pos = { x:0 , y:0 };
 
-            canvas.isDrawingMode = false;
+			canvas.isDrawingMode = false;
 
-            canvas.observe('mouse:down', function(e) {
+			canvas.observe('mouse:down', function(e) {
 
-                mouse_pos = canvas.getPointer(e.e);
+				mouse_pos = canvas.getPointer(e.e);
 
-                canvas.add(new fabric.Circle({
-                    left: mouse_pos.x,
-                    top: mouse_pos.y,
-                    radius: 30,
-                    fill: 'white',
-                    stroke: 'black',
-                    strokeWidth: 3
-                }));
+				var circle = new fabric.Circle({
+					left: mouse_pos.x-30,
+					top: mouse_pos.y-30,
+					radius: 30,
+					fill: 'white',
+					stroke: 'black',
+					strokeWidth: 3
+				});
 
-                canvas.off('mouse:down');
+				canvas.add(circle);
 
-            });
+				circle.setControlVisible('ml', false);
+				circle.setControlVisible('mt', false);
+				circle.setControlVisible('mr', false);
+				circle.setControlVisible('mb', false);
+				circle.setControlVisible('mtr', false);
 
+				canvas.off('mouse:down');
+
+			});
+		});
+
+		$("#saveState").click(function(){
+			canvas.isDrawingMode = false;
+            // save to localStorage
+            //var json = JSON.stringify(canvas);
+
+            //window.localStorage.setItem("hoge", json);
+            // var val = $("#selectState option:selected").text();
+            // states[val] = json;
+            // window.localStorage.setItem("states", JSON.stringify(states));
+            var json = JSON.stringify(canvas);
+            var val = $("#selectState option:selected").text();
+            states[val] = json;
         });
+
+		$("#saveLocally").click(function(){
+			canvas.isDrawingMode = false;
+			if(!window.localStorage){alert("This function is not supported by your browser."); return;}
+            // save to localStorage
+            var json = JSON.stringify(canvas);
+
+            var val = $("#selectState option:selected").text();
+            states[val] = json;
+            window.localStorage.setItem("states", JSON.stringify(states));
+        });
+
+		$("#saveToComputer").click(function(){
+			canvas.isDrawingMode = false;
+            // save to localStorage
+            var json = JSON.stringify(canvas);
+
+            var val = $("#selectState option:selected").text();
+            states[val] = json;
+            var blob = new Blob([JSON.stringify(states)], {type:"text/plain;charset=utf-8"});
+            saveAs(blob, "formation.json");
+        });
+
+		$('#uploadForm').change(function() {
+			var fr = new FileReader();
+			fr.onload = function(e) {
+				var result = JSON.parse(e.target.result);
+				states = result;
+				updateStates();
+				var val = $("#selectState option:selected").text();
+
+				canvas.clear();
+
+				canvas.loadFromJSON(states[val]);
+				canvas.renderAll();
+				canvas.calcOffset();
+			}
+			fr.readAsText(event.target.files[0]);
+			
+			
+
+		});
+
+		$("#resetCanvas").click(function(){
+			canvas.clear();
+		});
 
 	});
 	canvas.calcOffset();

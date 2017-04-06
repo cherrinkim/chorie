@@ -47,8 +47,8 @@ body {
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
-
-.platform-ios .drawing-board {
+/*
+.platform-ios . drawing-board {
     background-color: white;
     width: 300px;
     margin: auto;
@@ -58,12 +58,7 @@ body {
     margin-top: 10px;
 }
 
-.platform-ios #canvas {
-  width:350px; 
-  height:700px;
-}
-
-.platform-android .drawing-board {
+.platform-android . drawing-board {
     background-color: white;
     width: 300px;
     margin: auto;
@@ -73,14 +68,9 @@ body {
     margin-top: 10px;
 }
 
-.platform-android #canvas {
-  width:350px;
-  height:700px;
-}
-
-.platform-browser.drawing-board {
+.platform-browser .drawing-board {
     background-color: white;
-    width: 900px;
+    width: 960px;
     margin: auto;
     padding: 30px;
     color: black;
@@ -89,9 +79,10 @@ body {
 }
 
 .platform-browser #canvas {
-  width:950px; 
-  height:700px;
-}
+  width: 900px;
+  height: 700px;
+}*/
+
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -188,6 +179,15 @@ a.button {
 }
 #canvas {
     border: 1px solid black;
+}
+.drawing-board {
+    background-color: white;
+    width: 960px;
+    margin: auto;
+    padding: 30px;
+    color: black;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 .drawing-board .btn-primary {
     margin: 1px;

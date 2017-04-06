@@ -44,38 +44,38 @@ window.onload = function() {
 
 		$("#circle").click(function(){
 
-            var mouse_pos = { x:0 , y:0 };
+			var mouse_pos = { x:0 , y:0 };
 
-            canvas.isDrawingMode = false;
+			canvas.isDrawingMode = false;
 
-            canvas.observe('mouse:down', function(e) {
+			canvas.observe('mouse:down', function(e) {
 
-                mouse_pos = canvas.getPointer(e.e);
+				mouse_pos = canvas.getPointer(e.e);
 
-                var circle = new fabric.Circle({
-                    left: mouse_pos.x-30,
-                    top: mouse_pos.y-30,
-                    radius: 30,
-                    fill: 'white',
-                    stroke: 'black',
-                    strokeWidth: 3
-                });
+				var circle = new fabric.Circle({
+					left: mouse_pos.x-30,
+					top: mouse_pos.y-30,
+					radius: 30,
+					fill: 'white',
+					stroke: 'black',
+					strokeWidth: 3
+				});
 
-                canvas.add(circle);
+				canvas.add(circle);
 
-                circle.setControlVisible('ml', false);
+				circle.setControlVisible('ml', false);
 				circle.setControlVisible('mt', false);
 				circle.setControlVisible('mr', false);
 				circle.setControlVisible('mb', false);
 				circle.setControlVisible('mtr', false);
 
-                canvas.off('mouse:down');
+				canvas.off('mouse:down');
 
-            });
-        });
+			});
+		});
 
-        $("#saveState").click(function(){
-            canvas.isDrawingMode = false;
+		$("#saveState").click(function(){
+			canvas.isDrawingMode = false;
             // save to localStorage
             //var json = JSON.stringify(canvas);
 
@@ -84,13 +84,13 @@ window.onload = function() {
             // states[val] = json;
             // window.localStorage.setItem("states", JSON.stringify(states));
             var json = JSON.stringify(canvas);
-			var val = $("#selectState option:selected").text();
+            var val = $("#selectState option:selected").text();
             states[val] = json;
         });
 
-        $("#saveLocally").click(function(){
-        	canvas.isDrawingMode = false;
-            if(!window.localStorage){alert("This function is not supported by your browser."); return;}
+		$("#saveLocally").click(function(){
+			canvas.isDrawingMode = false;
+			if(!window.localStorage){alert("This function is not supported by your browser."); return;}
             // save to localStorage
             var json = JSON.stringify(canvas);
 
@@ -99,9 +99,40 @@ window.onload = function() {
             window.localStorage.setItem("states", JSON.stringify(states));
         });
 
-        $("#resetCanvas").click(function(){
-            canvas.clear();
+		$("#saveToComputer").click(function(){
+			canvas.isDrawingMode = false;
+            // save to localStorage
+            var json = JSON.stringify(canvas);
+
+            var val = $("#selectState option:selected").text();
+            states[val] = json;
+            var blob = new Blob([JSON.stringify(states)], {type:"text/plain;charset=utf-8"});
+            saveAs(blob, "formation.json");
         });
+
+		$('#uploadForm').change(function() {
+			var fr = new FileReader();
+			fr.onload = function(e) {
+				var result = JSON.parse(e.target.result);
+				states = result;
+				updateStates();
+				var val = $("#selectState option:selected").text();
+
+				canvas.clear();
+
+				canvas.loadFromJSON(states[val]);
+				canvas.renderAll();
+				canvas.calcOffset();
+			}
+			fr.readAsText(event.target.files[0]);
+			
+			
+
+		});
+
+		$("#resetCanvas").click(function(){
+			canvas.clear();
+		});
 
 	});
 	canvas.calcOffset();
