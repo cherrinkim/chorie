@@ -37,24 +37,29 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.9/fabric.min.js"></script>
         <script type="text/javascript" src="js/activity.js"></script>
 
-        
+
         <title>Chorie</title>
     </head>
     <body>
        <img id="logo" src="img/logo.jpg" alt="logo">
        <br />
-        <button class=btn-primary id="circle" type="button">Add circle</button>
+       <form id="statesForm">
+        <select id="selectState">
+        </select>
+       </form>
+        <button class=btn-primary id="addState" type="button">Add State<span class="glyphicon glyphicon-save-file" aria-hidden="true"></span></button>
+
+        <button class=btn-primary id="circle" type="button">Add Node</button>
+        <button class=btn-primary id="saveState" type="button">Save State<span class="glyphicon glyphicon-save-file" aria-hidden="true"></span></button>
+        <button class=btn-primary id="resetCanvas" type="button">Reset<span class="glyphicon glyphicon-save-file" aria-hidden="true"></span></button>
+
 
        <br />
         <br />
             <div class="drawing-board">
 
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" width="900" height="700"></canvas>
 </div>
- <br />
-       <br />
-<a href="actvity.html" class="button">Go</a>
- <br />
-       <br />
+
     </body>
 </html>
