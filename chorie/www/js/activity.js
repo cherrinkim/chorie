@@ -105,7 +105,7 @@ window.onload = function() {
 		$('#inputText').click(function() {
 			var activeObject = canvas.getActiveObject();
 			if(activeObject){
-				
+
 				canvas.isDrawingMode = false;
 
 				var text, size, font;
@@ -137,15 +137,25 @@ window.onload = function() {
 
 		});
 
-		$('#ungroupObjects').click(function(){
-			var activeGroup = canvas.getActiveGroup();
-			var activeObject = canvas.getActiveObject();
-			if(activeGroup){
-				console.log("active group");
-			}
-			if(activeObject){
-				console.log("active object");
-			}
+		$('#remove').click(function() {
+			canvas.isDrawingMode = false;
+
+            var activeObject = canvas.getActiveObject(),
+                activeGroup = canvas.getActiveGroup();
+            if (activeObject) {
+                canvas.remove(activeObject);
+
+            }
+            else if (activeGroup) {
+                if (confirm('Are you sure?')) {
+                    var objectsInGroup = activeGroup.getObjects();
+                    canvas.discardActiveGroup();
+                    objectsInGroup.forEach(function(object) {
+                        canvas.remove(object);
+                    });
+                }
+            }
+
 		});
 
 		$("#inputText2").click(function(){
