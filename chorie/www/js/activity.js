@@ -102,16 +102,94 @@ window.onload = function() {
 			});
 		});
 
+		$('#inputText').click(function() {
+			var activeObject = canvas.getActiveObject();
+			if(activeObject){
+				
+				canvas.isDrawingMode = false;
+
+				var text, size, font;
+
+				text = $('#text').val();
+				size = $('#size').val();
+				font = "Palatino Linotype";
+
+				size = parseInt(size, 10);
+
+				var text = new fabric.Text(text, {
+					fontFamily: font,
+					fontSize: size,
+					left: activeObject.aCoords.tl.x,
+					top: activeObject.aCoords.tl.y+activeObject.radius/2,
+					textAlign: "left",
+				});
+
+				canvas.remove(activeObject);
+				var group = new fabric.Group([activeObject, text],{
+					left: activeObject.aCoords.tl.x,
+					top: activeObject.aCoords.tl.y
+				});
+
+				canvas.add(group);
+				canvas.renderAll();
+				canvas.calcOffset();
+			}
+
+		});
+
+		$('#ungroupObjects').click(function(){
+			var activeGroup = canvas.getActiveGroup();
+			var activeObject = canvas.getActiveObject();
+			if(activeGroup){
+				console.log("active group");
+			}
+			if(activeObject){
+				console.log("active object");
+			}
+		});
+
+		$("#inputText2").click(function(){
+
+			canvas.isDrawingMode = false;
+
+			var text, size, font;
+
+			var mouse_pos = { x:0 , y:0 };
+
+			text = $('#text').val();
+			size = $('#size').val();
+			font = "Palatino Linotype";
+
+
+			canvas.observe('mouse:down', function(e) {
+
+				mouse_pos = canvas.getPointer(e.e);
+				size = parseInt(size, 10);
+
+				canvas.add(new fabric.Text(text, {
+					fontFamily: font,
+					fontSize: size,
+					left: mouse_pos.x,
+					top: mouse_pos.y,
+					textAlign: "left",
+				}));
+				canvas.off('mouse:down');
+				canvas.renderAll();
+				canvas.calcOffset();
+			});
+
+		});
+
 		function saveState(){
 			canvas.isDrawingMode = false;
-            var json = JSON.stringify(canvas);
-            var val = $("#selectState option:selected").text();
-            states[val] = json;
+			var json = JSON.stringify(canvas);
+			var val = $("#selectState option:selected").text();
+			states[val] = json;
 		}
 
 		$("#saveState").click(function(){
 			saveState();
-        });
+		});
 
 		$("#saveLocally").click(function(){
 			canvas.isDrawingMode = false;
@@ -157,13 +235,13 @@ window.onload = function() {
 		});
 
 	});
+canvas.calcOffset();
+
+document.onkeyup = function(e) {
+	canvas.renderAll();
+};
+
+setTimeout(function() {
 	canvas.calcOffset();
-
-	document.onkeyup = function(e) {
-		canvas.renderAll();
-	};
-
-	setTimeout(function() {
-		canvas.calcOffset();
-	}, 100);
+}, 100);
 };
