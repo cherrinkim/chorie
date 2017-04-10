@@ -4,6 +4,15 @@ window.onload = function() {
 	states['State 1'] = "";
 	jQuery(document).ready( function() {
 
+		canvas.on('mouse:over', function(e){
+			e.target.setOpacity(.5);
+			canvas.renderAll();
+		});
+
+		canvas.on('mouse:out', function(e){
+			e.target.setOpacity(1);
+			canvas.renderAll();
+		})
 
 		function updateStates(){
 			$('#selectState').empty();
