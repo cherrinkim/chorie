@@ -4,15 +4,7 @@ window.onload = function() {
 	states['State 1'] = "";
 	jQuery(document).ready( function() {
 
-		canvas.on('mouse:over', function(e){
-			e.target.setOpacity(.5);
-			canvas.renderAll();
-		});
-
-		canvas.on('mouse:out', function(e){
-			e.target.setOpacity(1);
-			canvas.renderAll();
-		})
+		
 
 		function updateStates(){
 			$('#selectState').empty();
@@ -79,7 +71,7 @@ window.onload = function() {
 			$('#selectState').val(name).trigger('change');
 		});
 
-		$("#circle").click(function(){
+		$("#circle2").click(function(){
 
 			var mouse_pos = { x:0 , y:0 };
 
@@ -108,6 +100,60 @@ window.onload = function() {
 
 				canvas.off('mouse:down');
 
+			});
+		});
+
+		$("#circle").click(function(){
+
+			var mouse_pos = { x:0 , y:0 };
+
+			canvas.isDrawingMode = false;
+
+			canvas.observe('mouse:down', function(e) {
+
+				mouse_pos = canvas.getPointer(e.e);
+
+				var circle = new fabric.Circle({
+					left: mouse_pos.x-30,
+					top: mouse_pos.y-30,
+					radius: 30,
+					fill: 'white',
+					stroke: 'black',
+					strokeWidth: 3
+				});
+
+				circle.setControlVisible('ml', false);
+				circle.setControlVisible('mt', false);
+				circle.setControlVisible('mr', false);
+				circle.setControlVisible('mb', false);
+				circle.setControlVisible('mtr', false);
+
+				canvas.off('mouse:down');
+
+				var text, size, font;
+
+				text = $('#text').val();
+				size = $('#size').val();
+				font = "Palatino Linotype";
+
+				size = parseInt(size, 10);
+
+				var text = new fabric.Text(text, {
+					fontFamily: font,
+					fontSize: size,
+					left: mouse_pos.x-circle.radius,
+					top: mouse_pos.y-circle.radius/2,
+					textAlign: "left",
+				});
+
+				var group = new fabric.Group([circle, text],{
+					left: mouse_pos.x-30,
+					top: mouse_pos.y-30
+				});
+
+				canvas.add(group);
+				canvas.renderAll();
+				canvas.calcOffset();
 			});
 		});
 

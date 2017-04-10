@@ -43,13 +43,39 @@
     <body>
        <img id="logo" src="img/logo.jpg" alt="logo">
        <br />
-        <button class=btn-primary id="circle" type="button">Add circle</button>
+        <div id = "statesDiv">
+            <form id="statesForm">
+                <select class=btn-primary id="selectState"></select>
+            </form>
 
-       <br />
-        <br />
-            <div class="drawing-board">
+            <button class=btn-primary id="previousState" type="button">Previous State</button>
+            <br>
+            <button class=btn-primary id="nextState" type="button">Next State</button>
+            <br>
+            <button class=btn-primary id="addState" type="button">New State</button>
+        </div>
 
-        <canvas id="canvas" width="280" height="300"></canvas>
-</div>
+        <div id="topToolbar">
+            <button class=btn-primary id="circle" type="button">Add Node</button>
+
+            <button class=btn-primary id="inputText" type="button">Add Text to Node</button>
+            <input id="text" name="text" type="text" size="40" value="Example">
+            <font size="2">Size:</font> <input id="size" name="size" type="text" size="3" value="18">
+
+            <br>
+            <button class=btn-primary id="remove" type="button">Remove</button>
+
+            <button class=btn-primary id="inputText2" type="button">Add Text to Page</button>
+            <input id="text" name="text" type="text" size="40" value="Example">
+            <font size="2">Size:</font> <input id="size" name="size" type="text" size="3" value="18">
+
+            <br>
+            <button class=btn-primary id="resetCanvas" type="button">Reset</button>
+            <button class=btn-primary id="saveLocally" type="button">Save to Local Storage</button>
+            <button class=btn-primary id="saveToComputer" type="button">Save to Computer</button>
+            <form id="uploadForm">
+            <input type='file' id='getFormation'/>
+        </form>
+        </div>
     </body>
 </html>
