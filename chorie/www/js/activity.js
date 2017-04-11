@@ -71,6 +71,44 @@ window.onload = function() {
 			$('#selectState').val(name).trigger('change');
 		});
 
+		function createCircle(x, y){
+			var circle = new fabric.Circle({
+				left: x,
+				top: y,
+				radius: 30,
+				fill: 'white',
+				stroke: 'black',
+				strokeWidth: 3
+			});
+
+			circle.setControlVisible('ml', false);
+			circle.setControlVisible('mt', false);
+			circle.setControlVisible('mr', false);
+			circle.setControlVisible('mb', false);
+			circle.setControlVisible('mtr', false);
+
+			return circle;
+		}
+
+		function createText(x, y){
+			var text, size, font;
+
+			text = $('#text').val();
+			size = $('#size').val();
+			font = "Palatino Linotype";
+
+			size = parseInt(size, 10);
+
+			var text = new fabric.Text(text, {
+				fontFamily: font,
+				fontSize: size,
+				left: x,
+				top: y,
+				textAlign: "center",
+			});
+			return text;
+		}
+
 		$("#circle2").click(function(){
 
 			var mouse_pos = { x:0 , y:0 };
@@ -78,26 +116,9 @@ window.onload = function() {
 			canvas.isDrawingMode = false;
 
 			canvas.observe('mouse:down', function(e) {
-
 				mouse_pos = canvas.getPointer(e.e);
-
-				var circle = new fabric.Circle({
-					left: mouse_pos.x-30,
-					top: mouse_pos.y-30,
-					radius: 30,
-					fill: 'white',
-					stroke: 'black',
-					strokeWidth: 3
-				});
-
+				var circle = createCircle(mouse_pos.x-30, mouse_pos.y-30);
 				canvas.add(circle);
-
-				circle.setControlVisible('ml', false);
-				circle.setControlVisible('mt', false);
-				circle.setControlVisible('mr', false);
-				circle.setControlVisible('mb', false);
-				circle.setControlVisible('mtr', false);
-
 				canvas.off('mouse:down');
 
 			});
@@ -113,38 +134,12 @@ window.onload = function() {
 
 				mouse_pos = canvas.getPointer(e.e);
 
-				var circle = new fabric.Circle({
-					left: mouse_pos.x-30,
-					top: mouse_pos.y-30,
-					radius: 30,
-					fill: 'white',
-					stroke: 'black',
-					strokeWidth: 3
-				});
-
-				circle.setControlVisible('ml', false);
-				circle.setControlVisible('mt', false);
-				circle.setControlVisible('mr', false);
-				circle.setControlVisible('mb', false);
-				circle.setControlVisible('mtr', false);
+				var circle = createCircle(mouse_pos.x, mouse_pos.y);
 
 				canvas.off('mouse:down');
 
-				var text, size, font;
-
-				text = $('#text').val();
-				size = $('#size').val();
-				font = "Palatino Linotype";
-
-				size = parseInt(size, 10);
-
-				var text = new fabric.Text(text, {
-					fontFamily: font,
-					fontSize: size,
-					left: mouse_pos.x-circle.radius,
-					top: mouse_pos.y-circle.radius/2,
-					textAlign: "left",
-				});
+				var text = createText(mouse_pos.x, mouse_pos.y+circle.radius/2);
+				
 
 				var group = new fabric.Group([circle, text],{
 					left: mouse_pos.x-30,
@@ -163,21 +158,7 @@ window.onload = function() {
 
 				canvas.isDrawingMode = false;
 
-				var text, size, font;
-
-				text = $('#text').val();
-				size = $('#size').val();
-				font = "Palatino Linotype";
-
-				size = parseInt(size, 10);
-
-				var text = new fabric.Text(text, {
-					fontFamily: font,
-					fontSize: size,
-					left: activeObject.aCoords.tl.x,
-					top: activeObject.aCoords.tl.y+activeObject.radius/2,
-					textAlign: "left",
-				});
+				var text = createText(activeObject.aCoords.tl.x, activeObject.aCoords.tl.y+activeObject.radius/2);
 
 				canvas.remove(activeObject);
 				var group = new fabric.Group([activeObject, text],{
@@ -195,21 +176,21 @@ window.onload = function() {
 		$('#remove').click(function() {
 			canvas.isDrawingMode = false;
 
-            var activeObject = canvas.getActiveObject(),
-                activeGroup = canvas.getActiveGroup();
-            if (activeObject) {
-                canvas.remove(activeObject);
+			var activeObject = canvas.getActiveObject(),
+			activeGroup = canvas.getActiveGroup();
+			if (activeObject) {
+				canvas.remove(activeObject);
 
-            }
-            else if (activeGroup) {
-                if (confirm('Are you sure?')) {
-                    var objectsInGroup = activeGroup.getObjects();
-                    canvas.discardActiveGroup();
-                    objectsInGroup.forEach(function(object) {
-                        canvas.remove(object);
-                    });
-                }
-            }
+			}
+			else if (activeGroup) {
+				if (confirm('Are you sure?')) {
+					var objectsInGroup = activeGroup.getObjects();
+					canvas.discardActiveGroup();
+					objectsInGroup.forEach(function(object) {
+						canvas.remove(object);
+					});
+				}
+			}
 
 		});
 
@@ -229,15 +210,8 @@ window.onload = function() {
 			canvas.observe('mouse:down', function(e) {
 
 				mouse_pos = canvas.getPointer(e.e);
-				size = parseInt(size, 10);
-
-				canvas.add(new fabric.Text(text, {
-					fontFamily: font,
-					fontSize: size,
-					left: mouse_pos.x,
-					top: mouse_pos.y,
-					textAlign: "left",
-				}));
+				var text = createText(mouse_pos.x, mouse_pos.y);
+				canvas.add(text);
 				canvas.off('mouse:down');
 				canvas.renderAll();
 				canvas.calcOffset();
