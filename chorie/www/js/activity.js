@@ -2,9 +2,17 @@ window.onload = function() {
 	canvas = new fabric.Canvas('canvas');
 	states = {};
 	states['State 1'] = "";
-	jQuery(document).ready( function() {
 
-		
+	jQuery(document).ready( function() {
+		function convertToRgba(hex,opacity){
+			hex = hex.replace('#','');
+			r = parseInt(hex.substring(0, hex.length/3), 16);
+			g = parseInt(hex.substring(hex.length/3, 2*hex.length/3), 16);
+			b = parseInt(hex.substring(2*hex.length/3, 3*hex.length/3), 16);
+
+			result = 'rgba('+r+','+g+','+b+','+opacity+')';
+			return result;
+		}
 
 		function updateStates(){
 			$('#selectState').empty();
@@ -24,6 +32,14 @@ window.onload = function() {
 		}
 
 		updateStates();
+
+		$('#colorpicker').change (function (e) {
+			var rgba = convertToRgba(e.target.value,1);
+			console.log(rgba);
+			canvas.setBackgroundColor(rgba, canvas.renderAll.bind(canvas));
+	
+
+		});
 
 		$('#selectState').change(function () {
 			var val = $("#selectState option:selected").text();
@@ -106,10 +122,12 @@ window.onload = function() {
 				top: y,
 				textAlign: "center",
 			});
+			text.setLeft(x-text.getWidth()/2);
+			text.setTop(y-text.getHeight()/2);
 			return text;
 		}
 
-		$("#circle2").click(function(){
+		$("#addNode").click(function(){
 
 			var mouse_pos = { x:0 , y:0 };
 
@@ -124,7 +142,7 @@ window.onload = function() {
 			});
 		});
 
-		$("#circle").click(function(){
+		$("#addNodeWithName").click(function(){
 
 			var mouse_pos = { x:0 , y:0 };
 
@@ -138,7 +156,7 @@ window.onload = function() {
 
 				canvas.off('mouse:down');
 
-				var text = createText(mouse_pos.x, mouse_pos.y+circle.radius/2);
+				var text = createText(mouse_pos.x+circle.width/2, mouse_pos.y+circle.height/2);
 				
 
 				var group = new fabric.Group([circle, text],{
@@ -152,13 +170,13 @@ window.onload = function() {
 			});
 		});
 
-		$('#inputText').click(function() {
+		$('#textToNode').click(function() {
 			var activeObject = canvas.getActiveObject();
 			if(activeObject){
 
 				canvas.isDrawingMode = false;
 
-				var text = createText(activeObject.aCoords.tl.x, activeObject.aCoords.tl.y+activeObject.radius/2);
+				var text = createText(activeObject.aCoords.tl.x+activeObject.getWidth()/2, activeObject.aCoords.tl.y+activeObject.getHeight()/2);
 
 				canvas.remove(activeObject);
 				var group = new fabric.Group([activeObject, text],{
@@ -194,7 +212,7 @@ window.onload = function() {
 
 		});
 
-		$("#inputText2").click(function(){
+		$("#textToPage").click(function(){
 
 			canvas.isDrawingMode = false;
 
@@ -270,7 +288,10 @@ window.onload = function() {
 		});
 
 		$("#resetCanvas").click(function(){
-			canvas.clear();
+			if (confirm('Are you sure?')) {
+				canvas.clear();
+
+			}
 		});
 
 	});
