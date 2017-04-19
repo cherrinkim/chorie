@@ -2,6 +2,8 @@ window.onload = function() {
 	canvas = new fabric.Canvas('canvas');
 	states = {};
 	states['State 1'] = "";
+	canvas.setBackgroundColor('rgba(255,255,255,1)', canvas.renderAll.bind(canvas));
+
 
 	jQuery(document).ready( function() {
 		function convertToRgba(hex,opacity){
@@ -37,8 +39,6 @@ window.onload = function() {
 			var rgba = convertToRgba(e.target.value,1);
 			console.log(rgba);
 			canvas.setBackgroundColor(rgba, canvas.renderAll.bind(canvas));
-	
-
 		});
 
 		$('#selectState').change(function () {
@@ -273,6 +273,17 @@ window.onload = function() {
             states[val] = json;
             var blob = new Blob([JSON.stringify(states)], {type:"text/plain;charset=utf-8"});
             saveAs(blob, "formation.json");
+        });
+
+        $('#savePNG').click(function(){
+        	canvas.isDrawingMode = false;
+        	var base64 = canvas.toDataURL('png');
+
+            var image = new Image();
+            image.onload = function() {
+                window.open(image.src);
+            }
+            image.src = base64;
         });
 
 		$('#uploadForm').change(function() {
