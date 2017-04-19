@@ -78,13 +78,18 @@ window.onload = function() {
 		});
 		
 
-		$("#addState").click(function(){
+		$("#newState").click(function(){
 			saveState();
+			canvas.isDrawingMode = false;
+			var json = JSON.stringify(canvas);
 			var name = 'State ' + (Object.keys(states).length+1).toString();
 			states[name] = "";
 			updateStates();
 
-			$('#selectState').val(name).trigger('change');
+			$('#selectState').val(name);
+			canvas.loadFromJSON(json);
+			canvas.renderAll();
+			canvas.calcOffset();
 		});
 
 		function createCircle(x, y){
