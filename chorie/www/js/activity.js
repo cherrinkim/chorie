@@ -5,6 +5,21 @@ window.onload = function() {
 	canvas.setBackgroundColor('rgba(255,255,255,1)', canvas.renderAll.bind(canvas));
 
 
+    responsive();
+    window.addEventListener('resize', responsive);
+
+    function responsive() {
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+        var widthn = width - 100;
+        var heightn = height - 100;
+        canvas.setDimensions({
+            width: widthn,
+            height: heightn
+        });
+    }
+
+
 	jQuery(document).ready( function() {
 		function convertToRgba(hex,opacity){
 			hex = hex.replace('#','');

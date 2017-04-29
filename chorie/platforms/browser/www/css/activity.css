@@ -20,15 +20,9 @@
 }
 
 #canvas {
+    text-align: center;
     border: 1px solid black;
-}
-#drawing-board {
-    background-color: white;
-    width: 960px;
-    margin: auto;
-    padding: 30px;
-    color: black;
-    border-radius: 10px;
+    width: 100%;
 }
 #drawing-board .btn-primary {
     margin: 1px;
