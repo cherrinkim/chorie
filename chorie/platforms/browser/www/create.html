@@ -18,7 +18,7 @@
     under the License.
 -->
 <html>
-    <head>
+<head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
@@ -27,31 +27,30 @@
             * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        
-        <title>Chorie</title>
-    </head>
-    <body>
-       <img id="logo" src="img/logo.jpg" alt="logo">
-       <br />
-       <br />
-       <h1> Select a Image</h1>
+            -->
+            <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; ;script-src 'self' https://ajax.googleapis.com/ 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: content:;">
+            <meta name="format-detection" content="telephone=no">
+            <meta name="msapplication-tap-highlight" content="no">
+            <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+            <link rel="stylesheet" type="text/css" href="css/index.css">
+
+            <title>Chorie</title>
+        </head>
+        <body>
+         <img id="logo" src="img/logo.jpg" alt="logo">
+         <br />
+         <br />
+         <h1> Select a Background</h1>
+         <br />
+         <br />
+         <select id="createList">
+            <option>White</option>
+            <option>Gray</option>
+        </select>
         <br />
-       <br />
-       <select id="dropDownList">
-    <option>Item 1</option>
-    <option>Item 2</option>
-    <option>Item 3</option>
-</select>
- <br />
-       <br />
-<a href="activity.html" class="button">Go</a>
- <br />
-       <br />
+        <br />
+        <a href="activity.html" id="createGoButton" class="button">Go</a>
+        <br />
+        <br />
     </body>
-</html>
+    </html>
