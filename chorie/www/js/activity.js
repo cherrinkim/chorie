@@ -11,8 +11,8 @@ window.onload = function() {
     function responsive() {
         var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
         var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-        var widthn = width - 100;
-        var heightn = height - 100;
+        var widthn = width - 200;
+        var heightn = height - 200;
         canvas.setDimensions({
             width: widthn,
             height: heightn

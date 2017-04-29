@@ -45,50 +45,56 @@
             <title>Chorie</title>
         </head>
         <body>
-        <img id="logo" src="img/logo.jpg" alt="logo">
+        <div style="text-align: center"></div>
+        <img id="logo" src="img/logo.png" alt="logo">
+        <div></div>
         <br />
 
 
-        <div class="container">
+
+        <center><div class="container">
             <div class="btn-group">
                 <button class=btn-primary id="addNode" type="button">Add Node</button>
                 <button class=btn-primary id="addNodeWithName" type="button">Add Node With Name</button>
                 <button class=btn-primary id="textToNode" type="button">Add Text to Node</button>
                 <button class=btn-primary id="textToPage" type="button">Add Text to Page</button>
 
-                <input id="text" name="text" type="text" size="40" value="Example">
-                <input id="size" name="size" type="text" size="3" value="18">
+                <input id="text" name="text" type="text" size="40" value="Text">
+                <input id="size" name="size" type="text" size="3" value="14">
                 <button class=btn-primary id="remove" type="button">Remove Selection</button>
                 <button class=btn-primary id="resetCanvas" type="button">Reset</button>
                 <button class=btn-primary id="saveToComputer" type="button">Save to Computer</button>
                 <button class=btn-primary id="savePNG" type="button">Save As PNG</button>
 
                 <form id="uploadForm">
-                    <input type='file' id='getFormation'/>
+                    <input type='file' id='getFormation' title="json"/>
                 </form>
+
             </div>
         </div>
-        <div class="btn-group-vertical">
-            <form id="statesForm">
-                <select class=btn-primary id="selectState"></select>
-            </form>
+        </center>
 
-            <button class=btn-primary id="previousState" type="button">Previous Formation</button>
-            <button class=btn-primary id="nextState" type="button">Next Formation</button>
-
-            <button class=btn-primary id="newState" type="button">New Formation</button>
-            <label for="colorpicker">Background</label>
-            <input type="color" id="colorpicker"/>
-        </div>
-        
 
 
 
 
     <br />
     <br />
-        <center><canvas id="canvas" height="600"></canvas></center>
+        <center><canvas id="canvas" height="400"></canvas></center>
+        <br />
+        <br />
+        <center>
+        <button class=btn-primary id="previousState" type="button">Previous Formation</button>
+        <button class=btn-primary id="nextState" type="button">Next Formation</button>
 
-
+        <button class=btn-primary id="newState" type="button">New Formation</button>
+            <p style="color: white"> Background Color</p>
+        <input type="color" id="colorpicker"/>
+        <form id="statesForm">
+            <select class=btn-primary id="selectState"></select>
+        </form>
+        </center>
+        <br />
+        <br />
 </body>
 </html>

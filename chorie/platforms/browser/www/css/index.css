@@ -23,8 +23,8 @@
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
+    -webkit-user-select: none;
+    background-color: #cccccc;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -103,8 +103,11 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 #logo{
-    height: 20%;
-    width: 100%;
+    height: 15%;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 a.button {
@@ -140,4 +143,7 @@ a.button {
   padding: 2%;
   border-radius: 2%;
   height: 30%;
+}
+input[type=file] {
+  color: white;
 }
