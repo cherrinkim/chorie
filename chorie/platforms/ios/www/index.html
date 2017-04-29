@@ -18,33 +18,83 @@
     under the License.
 -->
 <html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Chorie</title>
-    </head>
-    <body>
-       <img id="logo" src="img/logo.jpg" alt="logo">
-       <br />
-       <br />
-       <br />
-      <a href="create.html" class="button">Create A New Formation</a>
-       <br />
-       <br />
-      <a href="open.html" class="button">Open Existing Formation</a>
-       <br />
-       <br />
-    </body>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; ;script-src 'self' https://ajax.googleapis.com/ http://cdnjs.cloudflare.com/ https://s3-us-west-2.amazonaws.com/ 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/activity.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.9/fabric.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/FileSaver.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="js/activity.js"></script>
+
+
+    <title>Chorie</title>
+</head>
+<body background="img/background.jpg">
+<div style="text-align: center"></div>
+<img id="logo" src="img/logo.png" alt="logo">
+<div></div>
+<br />
+
+
+
+<center><div class="container">
+    <div class="btn-group">
+        <button class=btn-primary id="addNode" type="button">Add Node</button>
+        <button class=btn-primary id="addNodeWithName" type="button">Add Node With Name</button>
+        <button class=btn-primary id="textToNode" type="button">Add Text to Node</button>
+        <button class=btn-primary id="textToPage" type="button">Add Text to Page</button>
+
+        <input id="text" name="text" type="text" size="40" value="Text">
+        <input id="size" name="size" type="text" size="3" value="14">
+        <button class=btn-primary id="remove" type="button">Remove Selection</button>
+        <button class=btn-primary id="resetCanvas" type="button">Reset</button>
+        <button class=btn-primary id="saveToComputer" type="button">Save to Computer</button>
+        <button class=btn-primary id="savePNG" type="button">Save As PNG</button>
+
+        <form id="uploadForm">
+            <input type='file' id='getFormation'/>
+        </form>
+
+    </div>
+</div>
+</center>
+
+
+
+
+
+<br />
+<br />
+<center><canvas id="canvas" height="400"></canvas></center>
+<br />
+<br />
+<center>
+    <button class=btn-primary id="previousState" type="button">Previous Formation</button>
+    <button class=btn-primary id="nextState" type="button">Next Formation</button>
+
+    <button class=btn-primary id="newState" type="button">New Formation</button>
+    <label for="colorpicker"style="color: white">Background</label>
+    <input type="color" id="colorpicker"/>
+    <form id="statesForm">
+        <select class=btn-primary id="selectState"></select>
+    </form>
+</center>
+<br />
+<br />
+</body>
 </html>

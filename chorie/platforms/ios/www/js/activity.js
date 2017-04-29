@@ -2,17 +2,34 @@ window.onload = function() {
 	canvas = new fabric.Canvas('canvas');
 	states = {};
 	states['State 1'] = "";
+	canvas.setBackgroundColor('rgba(255,255,255,1)', canvas.renderAll.bind(canvas));
+
+
+    responsive();
+    window.addEventListener('resize', responsive);
+
+    function responsive() {
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+        var widthn = width - 200;
+        var heightn = height - 200;
+        canvas.setDimensions({
+            width: widthn,
+            height: heightn
+        });
+    }
+
+
 	jQuery(document).ready( function() {
+		function convertToRgba(hex,opacity){
+			hex = hex.replace('#','');
+			r = parseInt(hex.substring(0, hex.length/3), 16);
+			g = parseInt(hex.substring(hex.length/3, 2*hex.length/3), 16);
+			b = parseInt(hex.substring(2*hex.length/3, 3*hex.length/3), 16);
 
-		canvas.on('mouse:over', function(e){
-			e.target.setOpacity(.5);
-			canvas.renderAll();
-		});
-
-		canvas.on('mouse:out', function(e){
-			e.target.setOpacity(1);
-			canvas.renderAll();
-		})
+			result = 'rgba('+r+','+g+','+b+','+opacity+')';
+			return result;
+		}
 
 		function updateStates(){
 			$('#selectState').empty();
@@ -32,6 +49,12 @@ window.onload = function() {
 		}
 
 		updateStates();
+
+		$('#colorpicker').change (function (e) {
+			var rgba = convertToRgba(e.target.value,1);
+			console.log(rgba);
+			canvas.setBackgroundColor(rgba, canvas.renderAll.bind(canvas));
+		});
 
 		$('#selectState').change(function () {
 			var val = $("#selectState option:selected").text();
@@ -70,16 +93,76 @@ window.onload = function() {
 		});
 		
 
-		$("#addState").click(function(){
+		$("#newState").click(function(){
 			saveState();
+			canvas.isDrawingMode = false;
+			var json = JSON.stringify(canvas);
 			var name = 'State ' + (Object.keys(states).length+1).toString();
 			states[name] = "";
 			updateStates();
 
-			$('#selectState').val(name).trigger('change');
+			$('#selectState').val(name);
+			canvas.loadFromJSON(json);
+			canvas.renderAll();
+			canvas.calcOffset();
 		});
 
-		$("#circle").click(function(){
+		function createCircle(x, y){
+			var circle = new fabric.Circle({
+				left: x,
+				top: y,
+				radius: 30,
+				fill: 'white',
+				stroke: 'black',
+				strokeWidth: 3
+			});
+
+			circle.setControlVisible('ml', false);
+			circle.setControlVisible('mt', false);
+			circle.setControlVisible('mr', false);
+			circle.setControlVisible('mb', false);
+			circle.setControlVisible('mtr', false);
+
+			return circle;
+		}
+
+		function createText(x, y){
+			var text, size, font;
+
+			text = $('#text').val();
+			size = $('#size').val();
+			font = "Palatino Linotype";
+
+			size = parseInt(size, 10);
+
+			var text = new fabric.Text(text, {
+				fontFamily: font,
+				fontSize: size,
+				left: x,
+				top: y,
+				textAlign: "center",
+			});
+			text.setLeft(x-text.getWidth()/2);
+			text.setTop(y-text.getHeight()/2);
+			return text;
+		}
+
+		$("#addNode").click(function(){
+
+			var mouse_pos = { x:0 , y:0 };
+
+			canvas.isDrawingMode = false;
+
+			canvas.observe('mouse:down', function(e) {
+				mouse_pos = canvas.getPointer(e.e);
+				var circle = createCircle(mouse_pos.x-30, mouse_pos.y-30);
+				canvas.add(circle);
+				canvas.off('mouse:down');
+
+			});
+		});
+
+		$("#addNodeWithName").click(function(){
 
 			var mouse_pos = { x:0 , y:0 };
 
@@ -89,49 +172,31 @@ window.onload = function() {
 
 				mouse_pos = canvas.getPointer(e.e);
 
-				var circle = new fabric.Circle({
-					left: mouse_pos.x-30,
-					top: mouse_pos.y-30,
-					radius: 30,
-					fill: 'white',
-					stroke: 'black',
-					strokeWidth: 3
-				});
-
-				canvas.add(circle);
-
-				circle.setControlVisible('ml', false);
-				circle.setControlVisible('mt', false);
-				circle.setControlVisible('mr', false);
-				circle.setControlVisible('mb', false);
-				circle.setControlVisible('mtr', false);
+				var circle = createCircle(mouse_pos.x, mouse_pos.y);
 
 				canvas.off('mouse:down');
 
+				var text = createText(mouse_pos.x+circle.width/2, mouse_pos.y+circle.height/2);
+				
+
+				var group = new fabric.Group([circle, text],{
+					left: mouse_pos.x-30,
+					top: mouse_pos.y-30
+				});
+
+				canvas.add(group);
+				canvas.renderAll();
+				canvas.calcOffset();
 			});
 		});
 
-		$('#inputText').click(function() {
+		$('#textToNode').click(function() {
 			var activeObject = canvas.getActiveObject();
 			if(activeObject){
 
 				canvas.isDrawingMode = false;
 
-				var text, size, font;
-
-				text = $('#text').val();
-				size = $('#size').val();
-				font = "Palatino Linotype";
-
-				size = parseInt(size, 10);
-
-				var text = new fabric.Text(text, {
-					fontFamily: font,
-					fontSize: size,
-					left: activeObject.aCoords.tl.x,
-					top: activeObject.aCoords.tl.y+activeObject.radius/2,
-					textAlign: "left",
-				});
+				var text = createText(activeObject.aCoords.tl.x+activeObject.getWidth()/2, activeObject.aCoords.tl.y+activeObject.getHeight()/2);
 
 				canvas.remove(activeObject);
 				var group = new fabric.Group([activeObject, text],{
@@ -149,25 +214,25 @@ window.onload = function() {
 		$('#remove').click(function() {
 			canvas.isDrawingMode = false;
 
-            var activeObject = canvas.getActiveObject(),
-                activeGroup = canvas.getActiveGroup();
-            if (activeObject) {
-                canvas.remove(activeObject);
+			var activeObject = canvas.getActiveObject(),
+			activeGroup = canvas.getActiveGroup();
+			if (activeObject) {
+				canvas.remove(activeObject);
 
-            }
-            else if (activeGroup) {
-                if (confirm('Are you sure?')) {
-                    var objectsInGroup = activeGroup.getObjects();
-                    canvas.discardActiveGroup();
-                    objectsInGroup.forEach(function(object) {
-                        canvas.remove(object);
-                    });
-                }
-            }
+			}
+			else if (activeGroup) {
+				if (confirm('Are you sure?')) {
+					var objectsInGroup = activeGroup.getObjects();
+					canvas.discardActiveGroup();
+					objectsInGroup.forEach(function(object) {
+						canvas.remove(object);
+					});
+				}
+			}
 
 		});
 
-		$("#inputText2").click(function(){
+		$("#textToPage").click(function(){
 
 			canvas.isDrawingMode = false;
 
@@ -183,15 +248,8 @@ window.onload = function() {
 			canvas.observe('mouse:down', function(e) {
 
 				mouse_pos = canvas.getPointer(e.e);
-				size = parseInt(size, 10);
-
-				canvas.add(new fabric.Text(text, {
-					fontFamily: font,
-					fontSize: size,
-					left: mouse_pos.x,
-					top: mouse_pos.y,
-					textAlign: "left",
-				}));
+				var text = createText(mouse_pos.x, mouse_pos.y);
+				canvas.add(text);
 				canvas.off('mouse:down');
 				canvas.renderAll();
 				canvas.calcOffset();
@@ -232,6 +290,17 @@ window.onload = function() {
             saveAs(blob, "formation.json");
         });
 
+        $('#savePNG').click(function(){
+        	canvas.isDrawingMode = false;
+        	var base64 = canvas.toDataURL('png');
+
+            var image = new Image();
+            image.onload = function() {
+                window.open(image.src);
+            }
+            image.src = base64;
+        });
+
 		$('#uploadForm').change(function() {
 			var fr = new FileReader();
 			fr.onload = function(e) {
@@ -250,7 +319,10 @@ window.onload = function() {
 		});
 
 		$("#resetCanvas").click(function(){
-			canvas.clear();
+			if (confirm('Are you sure?')) {
+				canvas.clear();
+
+			}
 		});
 
 	});

@@ -54,17 +54,20 @@
 
 <center><div class="container">
     <div class="btn-group">
-        <button class=btn-primary id="addNode" type="button">Add Node</button>
-        <button class=btn-primary id="addNodeWithName" type="button">Add Node With Name</button>
-        <button class=btn-primary id="textToNode" type="button">Add Text to Node</button>
-        <button class=btn-primary id="textToPage" type="button">Add Text to Page</button>
+        <input src="img/add.png" id="addNode" type="image" title="Add Node">
+        <input src="img/addwithname.png" id="addNodeWithName" type="image" title="Add with Name">
+        <input src="img/addtexttopage.png" id="textToNode" type="image">
+        <input src="img/addtext.png" id="textToPage" type="image">
 
-        <input id="text" name="text" type="text" size="40" value="Text">
+
+        <input src="img/remove.png" id="remove" type="image">
+        <input src="img/reset.png" id="resetCanvas" type="image">
+        <input src="img/save.png" id="saveToComputer" type="image">
+        <input src="img/saveaspng.png" id="savePNG" type="image">
+        <input id="text" name="text" type="text" size="10" value="Text">
         <input id="size" name="size" type="text" size="3" value="14">
-        <button class=btn-primary id="remove" type="button">Remove Selection</button>
-        <button class=btn-primary id="resetCanvas" type="button">Reset</button>
-        <button class=btn-primary id="saveToComputer" type="button">Save to Computer</button>
-        <button class=btn-primary id="savePNG" type="button">Save As PNG</button>
+        <input type="color" id="colorpicker"/>
+
 
         <form id="uploadForm">
             <input type='file' id='getFormation'/>
@@ -84,15 +87,14 @@
 <br />
 <br />
 <center>
-    <button class=btn-primary id="previousState" type="button">Previous Formation</button>
-    <button class=btn-primary id="nextState" type="button">Next Formation</button>
 
-    <button class=btn-primary id="newState" type="button">New Formation</button>
-    <label for="colorpicker"style="color: white">Background</label>
-    <input type="color" id="colorpicker"/>
+    <input src="img/previous.png" id="previousState" type="image">
+    <input src="img/new.png" id="newState" type="image">
+    <input src="img/next.png" id="nextState" type="image">
     <form id="statesForm">
         <select class=btn-primary id="selectState"></select>
     </form>
+
 </center>
 <br />
 <br />

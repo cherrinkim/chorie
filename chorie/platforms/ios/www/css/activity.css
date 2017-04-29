@@ -15,16 +15,14 @@
 	margin: 3px;
 }
 
-#canvas {
-    border: 1px solid black;
+#slider {
+    width: 30%;
 }
-#drawing-board {
-    background-color: white;
-    width: 960px;
-    margin: auto;
-    padding: 30px;
-    color: black;
-    border-radius: 10px;
+
+#canvas {
+    text-align: center;
+    border: 1px solid black;
+    width: 100%;
 }
 #drawing-board .btn-primary {
     margin: 1px;
@@ -34,3 +32,5 @@
 #drawing-board .glyphicon {
     margin-left: 3px;
 }
+
+
